@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--Mapperとxmlのマッピング-->
+<mapper namespace="com.example.repository.UserMapper">
+	<resultMap type="com.example.model.MUser" id="user">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="introduction" property="introduction"/>
+	</resultMap>
+	<insert id="signup">
+		insert into m_user (name, email, password)
+		values (#{name}, #{email}, #{password})
+	</insert>
+	<select id="index" resultType="MUser">
+		select * from m_user
+	</select>
+	<select id="show" resultMap="user">
+		select * from m_user where id = #{id}
+	</select>
+	<update id="update">
+		update m_user set name = #{name}, introduction = #{introduction} where id = #{id}
+	</update>
+</mapper>

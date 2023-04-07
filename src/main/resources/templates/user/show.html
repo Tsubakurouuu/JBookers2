@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<meta charset="UTF-8"></meta>
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+		<!--CSS読込-->
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/login/login.css}">
+		<!--JS読込-->
+		<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+		<title>Bookers2</title>
+	</head>
+	<body>
+		<header layout:replace="~{layout/header::header}"></header>
+		<div class="container">
+			<div class="row">
+				<div class="col-3">
+					<h2>User info</h2>
+					<table class="table">
+						<tr>
+							<th>name</th>
+							<th th:text="${user.name}"></th>
+						</tr>
+						<tr>
+							<th>introduction</th>
+							<th th:text="${user.introduction}"></th>
+						</tr>
+					</table>
+					<a th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
+					<h2>New book</h2>
+				</div>
+				<div class="col-9">
+					<h2>Books</h2>
+				</div>
+			</div>
+		</div>
+		<footer layout:replace="~{layout/footer::footer}"></footer>
+	</body>
+</html>
