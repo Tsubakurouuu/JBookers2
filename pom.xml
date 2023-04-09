@@ -89,6 +89,16 @@
 			<artifactId>modelmapper-spring</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		<!--SpringSecurity-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!--Thyemeleaf拡張ライブラリ（ セキュリティ） -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

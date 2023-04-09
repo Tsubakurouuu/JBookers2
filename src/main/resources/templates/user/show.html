@@ -32,6 +32,22 @@
 				</div>
 				<div class="col-9">
 					<h2>Books</h2>
+					<table class="table table-hover table-inverse">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Title</th>
+								<th>Opinion</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="book : ${bookList}">
+								<td></td>
+								<td th:text="${book.title}"></td>
+								<td th:text="${book.body}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
