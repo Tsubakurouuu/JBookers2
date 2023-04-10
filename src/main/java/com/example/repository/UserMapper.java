@@ -13,4 +13,5 @@ public interface UserMapper {
 	public List<MUser> index();
 	public MUser show(int id);
 	public void update(@Param("id") int id, @Param("name") String name, @Param("introduction") String introduction);
+	public MUser login(String name);
 }

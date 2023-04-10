@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS m_user(
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(20),
 	email VARCHAR(100) PRIMARY KEY,
-	password VARCHAR(50),
+	password VARCHAR(100),
 	introduction VARCHAR(100)
 );
 

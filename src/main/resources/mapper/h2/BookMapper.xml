@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--Mapperとxmlのマッピング-->
+<mapper namespace="com.example.repository.BookMapper">
+	<resultMap type="com.example.model.Book" id="book">
+		<id column="id" property="id"/>
+		<id column="user_id" property="userId"/>
+		<result column="title" property="title"/>
+		<result column="body" property="body"/>
+		<association property="m_user" resultMap="m_user" columnPrefix="user_"/>
+	</resultMap>
+	<resultMap type="com.example.model.MUser" id="m_user">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="introduction" property="introduction"/>
+	</resultMap>
+	<insert id="insert">
+		insert into book (user_id, title, body)
+		values (#{userId}, #{title}, #{book})
+	</insert>
+	<select id="index" resultType="Book">
+		select * from book
+	</select>
+	<select id="show" resultMap="book">
+		select 
+			book.id,
+			book.user_id,
+			book.title,
+			book.body
+			m_user.id as user_id,
+			m_user.name as user_name,
+			m_user.email as user_email,
+			m_user.password as user_password,
+			m_user.introduction as user_introduction
+		from
+			book inner join m_user on book.user_id = m_user.id where book.id = #{id}
+	</select>
+</mapper>

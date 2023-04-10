@@ -42,4 +42,7 @@
 	<update id="update">
 		update m_user set name = #{name}, introduction = #{introduction} where id = #{id}
 	</update>
+	<select id="login" resultType="MUser">
+        select * from m_user where name = #{name}
+    </select>
 </mapper>

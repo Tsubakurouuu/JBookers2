@@ -5,8 +5,8 @@ INSERT INTO m_user(
     password,
     introduction
 )VALUES
-('Tarou','torou@example.com','password','Hello'),
-('Zirou','zirou@example.com','password','Hello');
+('Tarou','torou@example.com','$2a$10$APeI3rBtAl558SHXVVjO9ef/Gu.5ojfFR7f.5p/h3qZ1STGAjHAXa','Hello'),
+('Zirou','zirou@example.com','$2a$10$APeI3rBtAl558SHXVVjO9ef/Gu.5ojfFR7f.5p/h3qZ1STGAjHAXa','Hello');
 
 /*bookマスタ*/
 INSERT INTO book(

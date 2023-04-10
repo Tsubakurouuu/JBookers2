@@ -1,12 +1,10 @@
-package com.example.model;
+package com.example.form;
 
 import lombok.Data;
 
 @Data
-public class Book {
-	private int id;
+public class BookForm {
 	private int userId;
 	private String title;
 	private String body;
-	private MUser m_user;
 }

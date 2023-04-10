@@ -17,6 +17,11 @@
 			<div class="row">
 				<h2>Log in</h2>
 			</div>
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+           		th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+           		class="text-danger">
+            	ログインエラーメッセージ
+        	</p>
 			<form method="post" th:action="@{/users/sign_in}">
 				<div class="field">
 					<label for="name">Name</label><br>

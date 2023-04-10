@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<meta charset="UTF-8"></meta>
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+		<!--CSS読込-->
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/login/login.css}">
+		<!--JS読込-->
+		<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+		<title>Bookers2</title>
+	</head>
+	<body>
+		<header layout:replace="~{layout/header::header}"></header>
+		<div class="container">
+			<div class="row">
+				<div class="col-3">
+					<h2>New book</h2>
+					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
+						<div class="field">
+							<label for="name">Title</label><br>
+							<input type="text" th:field="*{title}"/>
+						</div>
+						<div class="field">
+							<label for="name">Body</label><br>
+							<input type="text" th:field="*{body}"/>
+						</div>
+						<div class="actions">
+							<input type="submit" value="Create Book" class="btn btn-success"/>
+						</div>
+					</form>
+				</div>
+				<div class="col-9">
+					<h2>Books</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Title</th>
+								<th>Opinion</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="book : ${bookList}">
+								<td></td>
+								<td>
+									<a th:text="${book.title}" th:href="@{'/books/' + ${book.id}}"></a>
+								</td>
+								<td th:text="${book.body}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<footer layout:replace="~{layout/footer::footer}"></footer>
+	</body>
+</html>

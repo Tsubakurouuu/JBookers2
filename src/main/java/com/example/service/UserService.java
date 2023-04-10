@@ -9,4 +9,5 @@ public interface UserService {
 	public List<MUser> index();
 	public MUser show(int id);
 	public void update(int id, String name, String introduction);
+	public MUser login(String name);
 }
