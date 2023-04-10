@@ -8,5 +8,5 @@ public class Book {
 	private int userId;
 	private String title;
 	private String body;
-	private MUser m_user;
+//	private MUser MUser;
 }

@@ -14,43 +14,21 @@
 	<body>
 		<header layout:replace="~{layout/header::header}"></header>
 		<div class="container">
-			<div class="row">
-				<div class="col-3">
-					<h2>User info</h2>
-					<table class="table">
-						<tr>
-							<th>name</th>
-							<th></th>
-						</tr>
-						<tr>
-							<th>introduction</th>
-<!--							<th th:text="${book.user_id.introduction}"></th>-->
-						</tr>
-					</table>
-					<h2>New book</h2>
+			<h2>User info</h2>
+			<form method="post" th:action="@{/users/update}" th:object="${editForm}">
+				<input type="hidden" th:field="*{id}"/>
+				<div class="field">
+					<label for="name">Name</label><br>
+					<input type="text" th:field="*{name}"/>
 				</div>
-				<div class="col-9">
-					<h2>Book details</h2>
-					<table class="table table-hover table-inverse">
-						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td th:text="${book.title}"></td>
-								<td th:text="${book.body}"></td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="field">
+					<label for="password">Introduction</label><br>
+					<input type="text" th:field=*{introduction}/>
 				</div>
-			</div>
+				<div class="actions">
+					<input type="submit" value="Update User" class="btn btn-secondary"/>
+				</div>
+			</form>
 		</div>
 		<footer layout:replace="~{layout/footer::footer}"></footer>
 	</body>

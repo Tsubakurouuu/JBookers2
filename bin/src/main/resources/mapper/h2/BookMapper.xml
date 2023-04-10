@@ -7,6 +7,7 @@
 		<id column="user_id" property="userId"/>
 		<result column="title" property="title"/>
 		<result column="body" property="body"/>
+		<association property="m_user" resultMap="m_user" columnPrefix="user_"/>
 	</resultMap>
 	<resultMap type="com.example.model.MUser" id="m_user">
 		<id column="id" property="id"/>
@@ -24,8 +25,16 @@
 	</select>
 	<select id="show" resultMap="book">
 		select 
-			*
+			book.id,
+			book.user_id,
+			book.title,
+			book.body
+			m_user.id as user_id,
+			m_user.name as user_name,
+			m_user.email as user_email,
+			m_user.password as user_password,
+			m_user.introduction as user_introduction
 		from
-			book where id = #{id}
+			book inner join m_user on book.user_id = m_user.id where book.id = #{id}
 	</select>
 </mapper>

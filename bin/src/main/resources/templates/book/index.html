@@ -16,35 +16,37 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-3">
-					<h2>User info</h2>
-					<table class="table">
-						<tr>
-							<th>name</th>
-							<th></th>
-						</tr>
-						<tr>
-							<th>introduction</th>
-<!--							<th th:text="${book.user_id.introduction}"></th>-->
-						</tr>
-					</table>
 					<h2>New book</h2>
+					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
+						<div class="field">
+							<label for="name">Title</label><br>
+							<input type="text" th:field="*{title}"/>
+						</div>
+						<div class="field">
+							<label for="name">Body</label><br>
+							<input type="text" th:field="*{body}"/>
+						</div>
+						<div class="actions">
+							<input type="submit" value="Create Book" class="btn btn-success"/>
+						</div>
+					</form>
 				</div>
 				<div class="col-9">
-					<h2>Book details</h2>
-					<table class="table table-hover table-inverse">
+					<h2>Books</h2>
+					<table class="table">
 						<thead>
 							<tr>
 								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
+								<th>Title</th>
+								<th>Opinion</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr th:each="book : ${bookList}">
 								<td></td>
-								<td th:text="${book.title}"></td>
+								<td>
+									<a th:text="${book.title}" th:href="@{'/books/' + ${book.id}}"></a>
+								</td>
 								<td th:text="${book.body}"></td>
 							</tr>
 						</tbody>
