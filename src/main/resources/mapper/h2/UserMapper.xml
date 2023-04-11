@@ -8,11 +8,11 @@
 		<result column="email" property="email"/>
 		<result column="password" property="password"/>
 		<result column="introduction" property="introduction"/>
-		<collection property="bookList" resultMap="book"/>
+		<collection property="bookList" resultMap="book" columnPrefix="book_"/>
 	</resultMap>
 	<resultMap type="com.example.model.Book" id="book">
 		<id column="id" property="id"/>
-		<id column="user_id" property="userId"/>
+		<result column="user_id" property="userId"/>
 		<result column="title" property="title"/>
 		<result column="body" property="body"/>
 	</resultMap>
@@ -30,12 +30,12 @@
 			m_user.email,
 			m_user.password,
 			m_user.introduction,
-			book.id,
-			book.user_id,
-			book.title,
-			book.body
+			book.id as book_id,
+			book.user_id as book_user_id,
+			book.title as book_title,
+			book.body as book_body
 		 from
-		 	m_user join book on m_user.id = book.user_id 
+		 	m_user inner join book on m_user.id = book.user_id
 		 where
 		 	m_user.id = #{id}
 	</select>

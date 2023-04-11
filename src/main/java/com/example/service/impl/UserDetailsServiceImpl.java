@@ -19,6 +19,8 @@ import com.example.service.UserService;
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserService service;
+	
+//	private MUser m_user;
 
 	@Override
 	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
@@ -34,4 +36,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserDetails userDetails = (UserDetails) new User(loginUser.getName(), loginUser.getPassword(), authorities);
 		return userDetails;
 	}
+	
+//	public MUser getMUser() {
+//		return m_user;
+//	}
 }

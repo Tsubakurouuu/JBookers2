@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmins:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="UTF-8"></meta>
 		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
@@ -41,11 +41,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="book : ${bookList}">
-								<td></td>
-								<td th:text="${book.title}"></td>
-								<td th:text="${book.body}"></td>
-							</tr>
+							<th:block th:if="${user.bookList != null}">
+								<tr th:each="book : ${user.bookList}">
+									<td></td>
+									<td th:text="${book.title}"></td>
+									<td th:text="${book.body}"></td>
+								</tr>
+							</th:block>
 						</tbody>
 					</table>
 				</div>
