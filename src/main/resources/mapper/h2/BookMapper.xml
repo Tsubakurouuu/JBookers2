@@ -18,7 +18,7 @@
 	</resultMap>
 	<insert id="insert">
 		insert into book (user_id, title, body)
-		values (#{userId}, #{title}, #{book})
+		values (#{userId}, #{title}, #{body})
 	</insert>
 	<select id="index" resultType="Book">
 		select * from book
@@ -39,4 +39,10 @@
 		where
 			book.id = #{id}
 	</select>
+	<update id="update">
+		update book set title = #{title}, body = #{body} where id = #{id}
+	</update>
+	<delete id="delete">
+		delete from book where id = #{id}
+	</delete>
 </mapper>

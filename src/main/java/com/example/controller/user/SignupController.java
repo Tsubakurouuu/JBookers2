@@ -38,7 +38,7 @@ public class SignupController {
 			return getSignup(form);
 		}
 		log.info(form.toString());
-		MUser user = modelMapper.map(form,  MUser.class);
+		MUser user = modelMapper.map(form, MUser.class);
 		userService.signup(user);
 		return "redirect:/users/sign_in";
 	}

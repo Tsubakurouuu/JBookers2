@@ -17,14 +17,15 @@ import com.example.service.UserService;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+	
+	private MUser loginUser;
+	
 	@Autowired
 	private UserService service;
 	
-//	private MUser m_user;
-
 	@Override
 	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-		MUser loginUser = service.login(name);
+		loginUser = service.login(name);
 		
 		if(loginUser == null) {
 			throw new UsernameNotFoundException("user not found");
@@ -37,7 +38,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return userDetails;
 	}
 	
-//	public MUser getMUser() {
-//		return m_user;
-//	}
+	public MUser getLoginUser() {
+		return loginUser;
+	}
+	
 }

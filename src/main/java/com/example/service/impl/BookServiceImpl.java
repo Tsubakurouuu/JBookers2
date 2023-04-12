@@ -10,11 +10,17 @@ import com.example.repository.BookMapper;
 import com.example.service.BookService;
 @Service
 public class BookServiceImpl implements BookService {
+	
+//	@Autowired
+//	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
 	@Autowired
 	private BookMapper mapper;
 
 	@Override
 	public void insert(Book book) {
+//		MUser loginUser = userDetailsServiceImpl.getLoginUser();
+//		book.setUserId(loginUser.getId());
 		mapper.insert(book);
 	}
 
@@ -27,6 +33,17 @@ public class BookServiceImpl implements BookService {
 	public Book show(int id) {
 		return mapper.show(id);
 	}
+
+	@Override
+	public void update(int id, String title, String body) {
+		mapper.update(id, title, body);
+	}
+
+	@Override
+	public void delete(int id) {
+		mapper.delete(id);
+	}
+
 	
 	
 

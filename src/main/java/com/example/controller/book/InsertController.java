@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.form.BookEditForm;
 import com.example.form.BookForm;
 import com.example.model.Book;
 import com.example.model.MUser;
 import com.example.service.BookService;
+import com.example.service.impl.UserDetailsServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,29 +27,55 @@ public class InsertController {
 	private BookService bookService;
 	
 	@Autowired
+	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 	
 	@GetMapping("/books")
-	public String getIndex(@ModelAttribute BookForm bookForm, Model model) {
+	public String getIndex(@ModelAttribute BookForm bookForm, Model model, MUser loginUser) {
 		List<Book> bookList = bookService.index();
 		model.addAttribute("bookList", bookList);
+		loginUser = userDetailsServiceImpl.getLoginUser();
+		model.addAttribute("loginUser", loginUser);
 		return "book/index";
 	}
 	
 	@PostMapping("/books/insert")
-	public String postInsert(@ModelAttribute BookForm form, @AuthenticationPrincipal MUser loginUser) {
+	public String postInsert(@ModelAttribute BookForm form, MUser loginUser) {
 		Book book = modelMapper.map(form, Book.class);
-//		book.setUserId(loginUser.getId());
+		loginUser = userDetailsServiceImpl.getLoginUser();
+		book.setUserId(loginUser.getId());
 		bookService.insert(book);
 		log.info(form.toString());
-		return "redirect:/users";
+		return "redirect:/books";
 	}
 	
 	@GetMapping("/books/{id}")
-	public String getSHow(Model model, @PathVariable("id") int id) {
+	public String getShow(Model model, @PathVariable("id") int id, @ModelAttribute BookForm bookForm) {
 		Book book = bookService.show(id);
 		model.addAttribute("book", book);
 		return "book/show";
+	}
+	
+	@GetMapping("/books/{id}/edit")
+	public String getEdit(BookEditForm form, Model model, @PathVariable("id") int id) {
+		Book book = bookService.show(id);
+		form = modelMapper.map(book, BookEditForm.class);
+		model.addAttribute("editForm", form);
+		return "book/edit";
+	}
+	
+	@PostMapping("/books/update")
+	public String postUpdate(BookEditForm form, Model model) {
+		bookService.update(form.getId(), form.getTitle(), form.getBody());
+		return "redirect:/books";
+	}
+	
+	@PostMapping("/books/delete")
+	public String postDelete(Model model, Book book) {
+		bookService.delete(book.getId());
+		return "redirect:/books";
 	}
 	
 }
