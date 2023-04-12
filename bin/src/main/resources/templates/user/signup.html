@@ -17,7 +17,7 @@
 			<div class="row">
 				<h2>Sign up</h2>
 			</div>
-			<form method="post" th:action="@{/users/sign_up}" th:object="${signupForm}">
+			<form method="post" th:action="@{/users/sign_up}" th:object="${form}">
 				<div class="field">
 					<label for="name">Name</label><br>
 					<input type="text" th:field=*{name} th:errorclass="is-invalid"/>

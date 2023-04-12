@@ -52,9 +52,11 @@ public class InsertController {
 	}
 	
 	@GetMapping("/books/{id}")
-	public String getShow(Model model, @PathVariable("id") int id, @ModelAttribute BookForm bookForm) {
+	public String getShow(Model model, @PathVariable("id") int id, @ModelAttribute BookForm bookForm, MUser loginUser) {
 		Book book = bookService.show(id);
 		model.addAttribute("book", book);
+		loginUser = userDetailsServiceImpl.getLoginUser();
+		model.addAttribute("loginUser", loginUser);
 		return "book/show";
 	}
 	

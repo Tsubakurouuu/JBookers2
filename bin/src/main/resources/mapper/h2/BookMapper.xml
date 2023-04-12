@@ -4,12 +4,12 @@
 <mapper namespace="com.example.repository.BookMapper">
 	<resultMap type="com.example.model.Book" id="book">
 		<id column="id" property="id"/>
-		<id column="user_id" property="userId"/>
+		<result column="user_id" property="userId"/>
 		<result column="title" property="title"/>
 		<result column="body" property="body"/>
-		<association property="m_user" resultMap="m_user" columnPrefix="user_"/>
+		<association property="mUser" resultMap="user" columnPrefix="user_"/>
 	</resultMap>
-	<resultMap type="com.example.model.MUser" id="m_user">
+	<resultMap type="com.example.model.MUser" id="user">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="email" property="email"/>
@@ -18,23 +18,31 @@
 	</resultMap>
 	<insert id="insert">
 		insert into book (user_id, title, body)
-		values (#{userId}, #{title}, #{book})
+		values (#{userId}, #{title}, #{body})
 	</insert>
 	<select id="index" resultType="Book">
 		select * from book
 	</select>
 	<select id="show" resultMap="book">
-		select 
+		select
 			book.id,
 			book.user_id,
 			book.title,
-			book.body
+			book.body,
 			m_user.id as user_id,
 			m_user.name as user_name,
 			m_user.email as user_email,
 			m_user.password as user_password,
 			m_user.introduction as user_introduction
 		from
-			book inner join m_user on book.user_id = m_user.id where book.id = #{id}
+			book inner join m_user on book.user_id = m_user.id
+		where
+			book.id = #{id}
 	</select>
+	<update id="update">
+		update book set title = #{title}, body = #{body} where id = #{id}
+	</update>
+	<delete id="delete">
+		delete from book where id = #{id}
+	</delete>
 </mapper>

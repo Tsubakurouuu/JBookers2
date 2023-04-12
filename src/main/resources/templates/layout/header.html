@@ -11,25 +11,47 @@
 		        		<span class="navbar-toggler-icon"></span>
 		      		</button>
 		      		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				        <ul class="navbar-nav ml-auto">
+				        <ul class="navbar-nav ml-auto" sec:authorize="authenticated">
 							<li>
-								<form method="get" th:action="@{/users/my_page}">
-									<button class="btn btn-link" type="submit">Home</button>
+								<form method="get" th:action="@{/users/{id}}">
+									<button class="btn btn-link text-white" type="submit">Home</button>
 								</form>
 							</li>
 							<li>
 								<form method="get" th:action="@{/users}">
-									<button class="btn btn-link" type="submit">Users</button>
+									<button class="btn btn-link text-white" type="submit">Users</button>
 								</form>
 							</li>
 							<li>
 								<form method="get" th:action="@{/books}">
-									<button class="btn btn-link" type="submit">Books</button>
+									<button class="btn btn-link text-white" type="submit">Books</button>
 								</form>
 							</li>
 							<li>
 								<form method="post" th:action="@{/users/logout}">
-									<button class="btn btn-link" type="submit">Log out</button>
+									<button class="btn btn-link text-white" type="submit">Log out</button>
+								</form>
+							</li>
+				        </ul>
+				        <ul class="navbar-nav ml-auto" sec:authorize="!authenticated">
+							<li>
+								<form method="get" th:action="@{/}">
+									<button class="btn btn-link text-white" type="submit">Home</button>
+								</form>
+							</li>
+							<li>
+								<form method="get" th:action="@{/home/about}">
+									<button class="btn btn-link text-white" type="submit">About</button>
+								</form>
+							</li>
+							<li>
+								<form method="get" th:action="@{/users/sign_up}">
+									<button class="btn btn-link text-white" type="submit">Sign up</button>
+								</form>
+							</li>
+							<li>
+								<form method="get" th:action="@{/users/sign_in}">
+									<button class="btn btn-link text-white" type="submit">Log in</button>
 								</form>
 							</li>
 				        </ul>

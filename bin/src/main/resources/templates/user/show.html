@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmins:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="UTF-8"></meta>
 		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
@@ -29,6 +29,20 @@
 					</table>
 					<a th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
 					<h2>New book</h2>
+					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
+						<input type="hidden" th:field="*{userId}"/>
+						<div class="field">
+							<label for="name">Title</label><br>
+							<input type="text" th:field="*{title}"/>
+						</div>
+						<div class="field">
+							<label for="name">Opinion</label><br>
+							<input type="text" th:field="*{body}"/>
+						</div>
+						<div class="actions">
+							<input type="submit" value="Create Book" class="btn btn-success"/>
+						</div>
+					</form>
 				</div>
 				<div class="col-9">
 					<h2>Books</h2>
@@ -41,11 +55,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="book : ${bookList}">
-								<td></td>
-								<td th:text="${book.title}"></td>
-								<td th:text="${book.body}"></td>
-							</tr>
+							<th:block th:if="${user.bookList != null}">
+								<tr th:each="book : ${user.bookList}">
+									<td></td>
+									<td th:text="${book.title}"></td>
+									<td th:text="${book.body}"></td>
+								</tr>
+							</th:block>
 						</tbody>
 					</table>
 				</div>

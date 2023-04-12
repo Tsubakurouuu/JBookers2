@@ -17,17 +17,31 @@
 			<div class="row">
 				<div class="col-3">
 					<h2>User info</h2>
-					<table class="table">
+					<table class="table" th:object="${book.mUser}">
 						<tr>
 							<th>name</th>
-							<th th:text="${book.user_id}"></th>
+							<td th:text="*{name}"></td>
 						</tr>
 						<tr>
 							<th>introduction</th>
-<!--							<th th:text="${book.user_id.introduction}"></th>-->
+							<td th:text="*{introduction}"></td>
 						</tr>
 					</table>
 					<h2>New book</h2>
+					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
+						<input type="hidden" th:field="*{userId}"/>
+						<div class="field">
+							<label for="name">Title</label><br>
+							<input type="text" th:field="*{title}"/>
+						</div>
+						<div class="field">
+							<label for="name">Opinion</label><br>
+							<input type="text" th:field="*{body}"/>
+						</div>
+						<div class="actions">
+							<input type="submit" value="Create Book" class="btn btn-success"/>
+						</div>
+					</form>
 				</div>
 				<div class="col-9">
 					<h2>Book details</h2>
@@ -46,6 +60,17 @@
 								<td></td>
 								<td th:text="${book.title}"></td>
 								<td th:text="${book.body}"></td>
+								<td>
+									<form method="get" th:action="@{'/books/' + ${book.id} + '/edit'}">
+										<button class="btn btn-success" type="submit">Edit</button>
+									</form>
+								</td>
+								<td>
+									<form method="post" th:action="@{/books/delete}" th:object="${book}">
+										<input type="hidden" th:field="*{id}"/>
+										<button class="btn btn-danger" type="submit">Destroy</button>
+									</form>
+								</td>
 							</tr>
 						</tbody>
 					</table>

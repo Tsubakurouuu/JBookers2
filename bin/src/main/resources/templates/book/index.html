@@ -16,14 +16,26 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-3">
+					<h2>User info</h2>
+					<table class="table">
+						<tr>
+							<th>name</th>
+							<td th:text="${loginUser.name}"></td>
+						</tr>
+						<tr>
+							<th>introduction</th>
+							<td th:text="${loginUser.introduction}"></td>
+						</tr>
+					</table>
 					<h2>New book</h2>
 					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
+						<input type="hidden" th:field="*{userId}"/>
 						<div class="field">
 							<label for="name">Title</label><br>
 							<input type="text" th:field="*{title}"/>
 						</div>
 						<div class="field">
-							<label for="name">Body</label><br>
+							<label for="name">Opinion</label><br>
 							<input type="text" th:field="*{body}"/>
 						</div>
 						<div class="actions">

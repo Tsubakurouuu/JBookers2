@@ -27,7 +27,9 @@
 							<th th:text="${user.introduction}"></th>
 						</tr>
 					</table>
-					<a th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
+					<form method="get" th:action="@{'/users/' + ${user.id} + '/edit'}">
+						<button class="btn btn-warning btn-block" type="submit">Edit</button>
+					</form>
 					<h2>New book</h2>
 					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
 						<input type="hidden" th:field="*{userId}"/>

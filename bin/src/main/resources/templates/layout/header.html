@@ -13,13 +13,18 @@
 		      		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				        <ul class="navbar-nav ml-auto">
 							<li>
-								<form method="get" th:action="@{/users/{id}}">
+								<form method="get" th:action="@{/users/my_page}">
 									<button class="btn btn-link" type="submit">Home</button>
 								</form>
 							</li>
 							<li>
 								<form method="get" th:action="@{/users}">
 									<button class="btn btn-link" type="submit">Users</button>
+								</form>
+							</li>
+							<li>
+								<form method="get" th:action="@{/books}">
+									<button class="btn btn-link" type="submit">Books</button>
 								</form>
 							</li>
 							<li>
