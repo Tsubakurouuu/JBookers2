@@ -67,8 +67,12 @@ public class InsertController {
 	}
 	
 	@GetMapping("/books/{id}/edit")
-	public String getEdit(BookEditForm form, Model model, @PathVariable("id") int id) {
+	public String getEdit(BookEditForm form, Model model, @PathVariable("id") int id, MUser loginUser) {
+		loginUser = userDetailsServiceImpl.getLoginUser();
 		Book book = bookService.show(id);
+		if(loginUser.getId() != book.getUserId()) {
+			return "redirect:/books/";
+		}
 		form = modelMapper.map(book, BookEditForm.class);
 		model.addAttribute("editForm", form);
 		return "book/edit";
