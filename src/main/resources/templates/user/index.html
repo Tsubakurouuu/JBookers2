@@ -30,21 +30,7 @@
 					<form method="get" th:action="@{'/users/' + ${loginUser.id} + '/edit'}">
 						<button class="btn btn-warning btn-block" type="submit">Edit</button>
 					</form>
-					<h2>New book</h2>
-					<form method="post" th:action="@{/books/insert}" th:object="${bookForm}">
-						<input type="hidden" th:field="*{userId}"/>
-						<div class="field">
-							<label for="name">Title</label><br>
-							<input type="text" th:field="*{title}"/>
-						</div>
-						<div class="field">
-							<label for="name">Opinion</label><br>
-							<input type="text" th:field="*{body}"/>
-						</div>
-						<div class="actions">
-							<input type="submit" value="Create Book" class="btn btn-success"/>
-						</div>
-					</form>
+					<div layout:replace="~{layout/form::form}"></div>
 				</div>
 				<div class="col-9">
 					<h2>Users</h2>

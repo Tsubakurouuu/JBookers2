@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.form.BookEditForm;
 import com.example.form.BookForm;
+import com.example.form.GroupOrder;
 import com.example.model.Book;
 import com.example.model.MUser;
 import com.example.service.BookService;
@@ -42,12 +45,15 @@ public class InsertController {
 	}
 	
 	@PostMapping("/books/insert")
-	public String postInsert(@ModelAttribute BookForm form, MUser loginUser) {
-		Book book = modelMapper.map(form, Book.class);
+	public String postInsert(@ModelAttribute @Validated(GroupOrder.class) BookForm bookForm, Model model, BindingResult bindingResult, MUser loginUser) {
+		Book book = modelMapper.map(bookForm, Book.class);
 		loginUser = userDetailsServiceImpl.getLoginUser();
 		book.setUserId(loginUser.getId());
+		if(bindingResult.hasErrors()) {
+			return getIndex(bookForm, model, loginUser);
+		}
 		bookService.insert(book);
-		log.info(form.toString());
+		log.info(bookForm.toString());
 		return "redirect:/books";
 	}
 	
