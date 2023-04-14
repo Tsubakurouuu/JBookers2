@@ -14,21 +14,26 @@
 	<body>
 		<header layout:replace="~{layout/header::header}"></header>
 		<div class="container">
-			<h2>User info</h2>
-			<form method="post" th:action="@{/books/update}" th:object="${editForm}">
+			<h2>Editing Book</h2>
+			<form method="post" th:action="@{/books/update}" th:object="${bookEditForm}">
 				<input type="hidden" th:field="*{id}"/>
 				<div class="field">
 					<label for="name">Title</label><br>
-					<input type="text" th:field="*{title}"/>
+					<input type="text" th:field="*{title}" th:errorclass=is-invalid/>
+					<div class="invalid-feedback" th:errors="*{title}"/>
 				</div>
 				<div class="field">
 					<label for="name">Opinion</label><br>
-					<input type="text" th:field=*{body}/>
+					<input type="text" th:field=*{body} th:errorclass=is-invalid/>
+					<div class="invalid-feedback" th:errors="*{body}"/>
 				</div>
 				<div class="actions">
-					<input type="submit" value="Update Book" class="btn btn-secondary"/>
+					<input type="submit" value="Update Book" class="btn btn-success"/>
 				</div>
 			</form>
+			<a th:href="@{'/books/' + ${bookEditForm.id}}">Show</a>
+			|
+			<a th:href="@{/books}">Back</a>
 		</div>
 		<footer layout:replace="~{layout/footer::footer}"></footer>
 	</body>

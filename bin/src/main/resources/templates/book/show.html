@@ -46,20 +46,26 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td></td>
-								<td th:text="${book.title}"></td>
+								<td th:object="${book.mUser}">
+									<a th:text="*{name}" th:href="@{'/users/' + ${book.userId}}"></a>
+								</td>
+								<td>
+									<a th:text="${book.title}" th:href="@{'/books/' + ${book.id}}"></a>
+								</td>
 								<td th:text="${book.body}"></td>
-								<td>
-									<form method="get" th:action="@{'/books/' + ${book.id} + '/edit'}">
-										<button class="btn btn-success" type="submit">Edit</button>
-									</form>
-								</td>
-								<td>
-									<form method="post" th:action="@{/books/delete}" th:object="${book}">
-										<input type="hidden" th:field="*{id}"/>
-										<button class="btn btn-danger" type="submit">Destroy</button>
-									</form>
-								</td>
+								<div:block th:if="${book.userId == loginUser.id}">
+									<td>
+										<form method="get" th:action="@{'/books/' + ${book.id} + '/edit'}">
+											<button class="btn btn-success" type="submit">Edit</button>
+										</form>
+									</td>
+									<td>
+										<form method="post" th:action="@{/books/delete}" th:object="${book}">
+											<input type="hidden" th:field="*{id}"/>
+											<button class="btn btn-danger" type="submit">Destroy</button>
+										</form>
+									</td>
+								</div:block>
 							</tr>
 						</tbody>
 					</table>

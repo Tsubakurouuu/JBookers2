@@ -29,7 +29,7 @@ public class ShowController {
 	}
 	
 	@PostMapping("/users/my_page")
-	public String getMyPage(MUser loginUser, Model model) {
+	public String postMyPage(MUser loginUser, Model model) {
 		loginUser = userDetailsServiceImpl.getLoginUser();
 		model.addAttribute("loginUser", loginUser);
 		return "redirect:/users/" + loginUser.getId();

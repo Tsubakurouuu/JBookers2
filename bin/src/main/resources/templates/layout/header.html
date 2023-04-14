@@ -13,7 +13,7 @@
 		      		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				        <ul class="navbar-nav ml-auto" sec:authorize="authenticated">
 							<li>
-								<form method="get" th:action="@{/users/{id}}">
+								<form method="post" th:action="@{/users/my_page}">
 									<button class="btn btn-link text-white" type="submit">Home</button>
 								</form>
 							</li>

@@ -43,7 +43,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<th:block th:if="${user.bookList != null}">
+<!--							<th:block th:if="${user.bookList != null}">-->
 								<tr th:each="book : ${user.bookList}">
 									<td></td>
 									<td>
@@ -51,7 +51,7 @@
 									</td>
 									<td th:text="${book.body}"></td>
 								</tr>
-							</th:block>
+<!--							</th:block>-->
 						</tbody>
 					</table>
 				</div>

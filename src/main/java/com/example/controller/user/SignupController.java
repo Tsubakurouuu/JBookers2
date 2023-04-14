@@ -35,7 +35,7 @@ public class SignupController {
 	@PostMapping("/sign_up")
 	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) UserSignupForm form, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return getSignup(form);
+			return "user/signup";
 		}
 		log.info(form.toString());
 		MUser user = modelMapper.map(form, MUser.class);

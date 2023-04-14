@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.form.BookEditForm;
 import com.example.form.BookForm;
@@ -45,16 +46,17 @@ public class InsertController {
 	}
 	
 	@PostMapping("/books/insert")
-	public String postInsert(@ModelAttribute @Validated(GroupOrder.class) BookForm bookForm, Model model, BindingResult bindingResult, MUser loginUser) {
-		Book book = modelMapper.map(bookForm, Book.class);
-		loginUser = userDetailsServiceImpl.getLoginUser();
-		book.setUserId(loginUser.getId());
+	public String postInsert(@ModelAttribute @Validated(GroupOrder.class) BookForm bookForm, BindingResult bindingResult, Model model, MUser loginUser, RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			return getIndex(bookForm, model, loginUser);
 		}
+		Book book = modelMapper.map(bookForm, Book.class);
+		loginUser = userDetailsServiceImpl.getLoginUser();
+		book.setUserId(loginUser.getId());
 		bookService.insert(book);
 		log.info(bookForm.toString());
-		return "redirect:/books";
+		redirectAttributes.addFlashAttribute("complete", "You have created book successfully.");
+		return "redirect:/books/" + book.getId();
 	}
 	
 	@GetMapping("/books/{id}")
@@ -67,20 +69,24 @@ public class InsertController {
 	}
 	
 	@GetMapping("/books/{id}/edit")
-	public String getEdit(BookEditForm form, Model model, @PathVariable("id") int id, MUser loginUser) {
+	public String getEdit(@ModelAttribute BookEditForm form, Model model, @PathVariable("id") int id, MUser loginUser) {
 		loginUser = userDetailsServiceImpl.getLoginUser();
 		Book book = bookService.show(id);
 		if(loginUser.getId() != book.getUserId()) {
 			return "redirect:/books/";
 		}
 		form = modelMapper.map(book, BookEditForm.class);
-		model.addAttribute("editForm", form);
+		model.addAttribute("bookEditForm", form);
 		return "book/edit";
 	}
 	
 	@PostMapping("/books/update")
-	public String postUpdate(BookEditForm form, Model model) {
+	public String postUpdate(@ModelAttribute @Validated(GroupOrder.class) BookEditForm form, BindingResult bindingResult, Model model, int id, MUser loginUser, RedirectAttributes redirectAttributes) {
+		if(bindingResult.hasErrors()) {
+			return "book/edit";
+		}
 		bookService.update(form.getId(), form.getTitle(), form.getBody());
+		redirectAttributes.addFlashAttribute("complete", "You have updated book successfully.");
 		return "redirect:/books";
 	}
 	
