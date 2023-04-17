@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class InsertController {
+public class BookInsertController {
 	@Autowired
 	private BookService bookService;
 	
@@ -59,14 +59,7 @@ public class InsertController {
 		return "redirect:/books/";
 	}
 	
-	@GetMapping("/books/{id}")
-	public String getShow(Model model, @PathVariable("id") int id, @ModelAttribute BookForm bookForm, MUser loginUser) {
-		Book book = bookService.show(id);
-		model.addAttribute("book", book);
-		loginUser = userDetailsServiceImpl.getLoginUser();
-		model.addAttribute("loginUser", loginUser);
-		return "book/show";
-	}
+	
 	
 	@GetMapping("/books/{id}/edit")
 	public String getEdit(@ModelAttribute BookEditForm form, Model model, @PathVariable("id") int id, MUser loginUser) {

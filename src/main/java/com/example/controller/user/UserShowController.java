@@ -14,7 +14,7 @@ import com.example.service.UserService;
 import com.example.service.impl.UserDetailsServiceImpl;
 
 @Controller
-public class ShowController {
+public class UserShowController {
 	@Autowired
 	private UserService userService;
 	

@@ -10,7 +10,7 @@ import com.example.model.MUser;
 
 @Controller
 @RequestMapping("/users")
-public class LoginController {
+public class UserLoginController {
 	@GetMapping("/sign_in")
 	public String getLogin() {
 		return "user/login";

@@ -1,32 +1,33 @@
-package com.example.controller.user;
-
-import java.util.List;
+package com.example.controller.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.form.BookForm;
+import com.example.model.Book;
 import com.example.model.MUser;
-import com.example.service.UserService;
+import com.example.service.BookService;
 import com.example.service.impl.UserDetailsServiceImpl;
 
 @Controller
-public class ListController {
+public class BookShowController {
 	@Autowired
-	private UserService userService;
+	private BookService bookService;
 	
 	@Autowired
-	UserDetailsServiceImpl userDetailsServiceImpl;
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
-	@GetMapping("/users")
-	public String getUsers(Model model, @ModelAttribute BookForm bookForm, MUser loginUser) {
-		List<MUser> userList = userService.index();
-		model.addAttribute("userList", userList);
+	@GetMapping("/books/{id}")
+	public String getShow(Model model, @PathVariable("id") int id, @ModelAttribute BookForm bookForm, MUser loginUser) {
+		Book book = bookService.show(id);
+		model.addAttribute("book", book);
 		loginUser = userDetailsServiceImpl.getLoginUser();
 		model.addAttribute("loginUser", loginUser);
-		return "user/index";
+		return "book/show";
 	}
+	
 }

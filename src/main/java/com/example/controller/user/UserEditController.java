@@ -19,7 +19,7 @@ import com.example.service.UserService;
 import com.example.service.impl.UserDetailsServiceImpl;
 
 @Controller
-public class EditController {
+public class UserEditController {
 	@Autowired
 	private UserService userService;
 	
