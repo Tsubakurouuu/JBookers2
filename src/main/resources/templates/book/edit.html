@@ -24,7 +24,7 @@
 				</div>
 				<div class="field">
 					<label for="name">Opinion</label><br>
-					<input type="text" th:field=*{body} th:errorclass=is-invalid/>
+					<textarea type="text" th:field=*{body} th:errorclass=is-invalid/>
 					<div class="invalid-feedback" th:errors="*{body}"/>
 				</div>
 				<div class="actions">

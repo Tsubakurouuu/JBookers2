@@ -56,7 +56,7 @@ public class InsertController {
 		bookService.insert(book);
 		log.info(bookForm.toString());
 		redirectAttributes.addFlashAttribute("complete", "You have created book successfully.");
-		return "redirect:/books/" + book.getId();
+		return "redirect:/books/";
 	}
 	
 	@GetMapping("/books/{id}")

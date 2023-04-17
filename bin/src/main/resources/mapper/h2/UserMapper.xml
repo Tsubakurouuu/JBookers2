@@ -35,7 +35,7 @@
 			book.title as book_title,
 			book.body as book_body
 		 from
-		 	m_user inner join book on m_user.id = book.user_id
+		 	m_user left join book on m_user.id = book.user_id
 		 where
 		 	m_user.id = #{id}
 	</select>

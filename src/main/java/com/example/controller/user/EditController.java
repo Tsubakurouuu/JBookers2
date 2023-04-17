@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.form.GroupOrder;
 import com.example.form.UserEditForm;
@@ -41,11 +42,12 @@ public class EditController {
 	}
 	
 	@PostMapping("/users/update")
-	public String postUpdate(@ModelAttribute @Validated(GroupOrder.class) UserEditForm form, BindingResult bindingResult, Model model) {
+	public String postUpdate(@ModelAttribute @Validated(GroupOrder.class) UserEditForm form, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			return "user/edit";
 		}
 		userService.update(form.getId(), form.getName(), form.getIntroduction());
-		return "redirect:/users";
+		redirectAttributes.addFlashAttribute("complete", "You have updated user successfully.");
+		return "redirect:/users/" + form.getId();
 	}
 }

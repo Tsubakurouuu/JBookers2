@@ -69,7 +69,11 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+					<form method="post" th:action="@{/book_comment/insert}" th:objecu="@{bookCommentForm}">
+						<textarea type="text" th:field="*{comment}"/>
+						<input tpe="submit" value="送信" class="btn btn-success"/>
+					</form>
+ 				</div>
 			</div>
 		</div>
 		<footer layout:replace="~{layout/footer::footer}"></footer>

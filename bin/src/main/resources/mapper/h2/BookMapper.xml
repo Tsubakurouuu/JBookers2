@@ -35,7 +35,7 @@
 			m_user.password as user_password,
 			m_user.introduction as user_introduction
 		from
-			book inner join m_user on book.user_id = m_user.id
+			book left join m_user on book.user_id = m_user.id
 		where
 			book.id = #{id}
 	</select>

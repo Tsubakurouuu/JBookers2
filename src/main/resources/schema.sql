@@ -12,3 +12,10 @@ CREATE TABLE IF NOT EXISTS book(
 	title VARCHAR(20),
 	body VARCHAR(100)
 );
+
+CREATE TABLE IF NOT EXISTS book_comment(
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT,
+	book_id INT,
+	comment VARCHAR(50)
+)

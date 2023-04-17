@@ -15,11 +15,12 @@
 		<header layout:replace="~{layout/header::header}"></header>
 		<div class="container">
 			<h2>User info</h2>
-			<form method="post" th:action="@{/users/update}" th:object="${editForm}">
+			<form method="post" th:action="@{/users/update}" th:object="${userEditForm}">
 				<input type="hidden" th:field="*{id}"/>
 				<div class="field">
 					<label for="name">Name</label><br>
-					<input type="text" th:field="*{name}"/>
+					<input type="text" th:field="*{name}" th:errorclass="is-invalid"/>
+					<div class="invalid-feedback" th:errors="*{name}"/>
 				</div>
 				<div class="field">
 					<label for="name">Introduction</label><br>

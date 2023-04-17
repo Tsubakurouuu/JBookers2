@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--Mapperとxmlのマッピング-->
+<mapper namespace="com.example.repository.BookCommentMapper">
+	<resultMap type="com.example.model.BookComment" id="book_comment">
+		<id column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="comment" property="comment"/>
+		<collection property="userList" resultMap="user"/>
+		<collection property="bookList" resultMap="book"/>
+	</resultMap>
+	<resultMap type="com.example.model.MUser" id="user">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="introduction" property="introduction"/>
+	</resultMap>
+	<resultMap type="com.example.model.Book" id="book">
+		<id column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="title" property="title"/>
+		<result column="body" property="body"/>
+	</resultMap>
+	<insert id="insert_comment">
+		insert into book_comment(user_id, book_id, comment)
+		values (#{userId}, #{bookId}, #{commnet})
+	</insert>
+</mapper>
